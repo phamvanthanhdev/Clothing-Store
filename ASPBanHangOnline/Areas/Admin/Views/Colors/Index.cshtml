@@ -1,0 +1,44 @@
+﻿@model IEnumerable<ASPBanHangOnline.Models.Color>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>List Category</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div style="text-align:center">
+<table class="table">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>
+                Tên màu sắc
+            </th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var i = 0;
+        }
+        
+@foreach (var item in Model) {
+            i++;
+            <tr>
+                <td>@i</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ColorName)
+            </td>
+            <td>
+                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.ColorId">Edit</a> |
+                <a class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa bản ghi này?')" asp-action="Delete" asp-route-id="@item.ColorId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>

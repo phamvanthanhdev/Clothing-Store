@@ -1,0 +1,16 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model ASPBanHangOnline.Models.User
+@if (Model == null)
+{
+    <a href="/Account/Login" class="nav-item nav-link">Login</a>
+}
+else
+{
+    <a href="/Account/Logout" class="nav-item nav-link">Logout</a>
+    <a href="/Account/Info" class="nav-item nav-link">Hello, @Model.FirstName</a>
+}
+<a href="/Account/SignUp" class="nav-item nav-link">Register</a>

@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewData["Title"] = "PurchasedOrders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<ASPBanHangOnline.Models.Order>
+
+
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Mã đơn hàng</th>
+        <th>Tổng giá trị</th>
+        <th>Số điện thoại</th>
+        <th>Địa chỉ</th>
+        <th>Ngày tạo</th>
+        <th>Trạng thái</th>
+        <th>Xem chi tiết</th>
+      </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+          <tr>
+            <td>@item.OrderId</td>
+            <td>$@item.TotalPrice</td>
+            <td>@item.Phone</td>
+            <td>@item.Address</td>
+            <td>@item.CreatedDate</td>
+            <td>
+                @{
+                string[] statusOrder = {"Chờ xác nhận", "Đang đóng gói", "Chờ vận chuyển", "Đang giao hàng", "Đã giao hàng" };
+                }
+                @for (var i = 0; i < statusOrder.Count(); i++)
+                {
+                    @if(item.Status == i)
+                    {
+                        @statusOrder[i]
+                    }
+                }
+            </td>
+            <td>
+                <a class="btn btn-info" href="/Orders/Details/@item.OrderId">Xem</a>
+            </td>
+        
+          </tr>
+        }
+    </tbody>
+  </table>
+

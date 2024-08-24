@@ -1,0 +1,44 @@
+﻿@model IEnumerable<ASPBanHangOnline.Models.Size>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Danh sách Sizes</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+<div style="text-align:center">
+<table class="table">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>
+                Tên Size
+            </th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var i = 0;
+        }
+@foreach (var item in Model) {
+        i++;
+        <tr>
+            <td>@i</td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.SizeName)
+            </td>
+            <td>
+                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.SizeId">Edit</a> |
+                <a class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa bản ghi này?')" asp-action="Delete" asp-route-id="@item.SizeId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>

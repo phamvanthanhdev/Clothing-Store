@@ -1,0 +1,119 @@
+﻿
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model ASPBanHangOnline.Areas.Admin.Controllers.DetailInOrder
+
+<div class="container-fluid pt-5">
+        <div class="text-center mb-4">
+            <h2 class="section-title px-5"><span class="px-2">Order Details</span></h2>
+        </div>
+        <div class="row px-xl-5">
+            <div class="col-lg-8 mb-5">
+                <div class="contact-form">
+                    <div id="success"></div>
+                      <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Số thứ tự
+                                </th>
+                                <th>
+                                    Tên sản phẩm
+                                </th>
+                                <th>
+                                    Số lượng
+                                </th>
+                                <th>
+                                    Đơn giá
+                                </th>
+                                <th>
+                                    Tổng tiền
+                                </th>
+                            </tr>
+                        </thead>
+                       <tbody>
+                           @{var j = 0;}
+                    @foreach (var item in Model.OrderDetails) {
+                            j++;
+                            <tr>
+                                <td>
+                                    @j
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Product.ProductName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Quantity)
+                                </td>
+                                <td>
+                                    $@(item.Product.ProductPrice * (1 -  item.Product.ProductDiscount))
+                                </td>
+                                <td>
+                                    $@(item.Product.ProductPrice * (1 -  item.Product.ProductDiscount) * item.Quantity)
+                                </td>
+                            </tr>
+                    }
+                       </tbody>                
+                     </table>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-5">
+                <h5 class="font-weight-semi-bold mb-3">Thông tin đơn hàng</h5>
+                <p>Mã đơn hàng: @Model.Order.OrderId</p>
+                @{
+                string[] statusOrder = {"Chờ xác nhận", "Đang đóng gói", "Chờ vận chuyển", "Đang giao hàng", "Đã giao hàng" };
+                }
+                @for (var i = 0; i < statusOrder.Count(); i++)
+                {
+                    @if(Model.Order.Status == i)
+                    {
+                        <p>Trạng thái: @statusOrder[i]</p>
+                    }
+                }
+                
+                <div class="d-flex flex-column mb-3">
+                    <h5 class="font-weight-semi-bold mb-3">Chi tiết giao hàng</h5>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>@Model.Order.Address</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i>@Model.Order.Phone</p>
+                </div>
+                <div class="d-flex flex-column">
+                    <h5 class="font-weight-semi-bold mb-3">Tổng tiền</h5>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>$@Model.Order.TotalPrice</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@*
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Mã đơn hàng</th>
+        <th>Tổng giá trị</th>
+        <th>Số điện thoại</th>
+        <th>Địa chỉ</th>
+        <th>Ngày tạo</th>
+        <th>Xem chi tiết</th>
+      </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+          <tr>
+            <td>@item.OrderId</td>
+            <td>$@item.TotalPrice</td>
+            <td>@item.Phone</td>
+            <td>@item.Address</td>
+            <td>@item.CreatedDate</td>
+            <td>
+                <a class="btn btn-info" href="/Orders/Details/@item.OrderId">Xem</a>
+            </td>
+        
+          </tr>
+        }
+    </tbody>
+  </table>
+*@

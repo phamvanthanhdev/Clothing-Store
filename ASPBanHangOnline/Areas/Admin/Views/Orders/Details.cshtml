@@ -1,0 +1,110 @@
+﻿@model ASPBanHangOnline.Areas.Admin.Controllers.DetailInOrder
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Mã đơn hàng
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Order.OrderId)
+        </dd>
+        <dt class = "col-sm-2">
+            Tên khách hàng
+        </dt>
+        <dd class = "col-sm-10">
+            @(Model.Order.User.FirstName +" "+ Model.Order.User.LastName)
+        </dd>
+        <dt class = "col-sm-2">
+            Tổng giá trị đơn hàng
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Order.TotalPrice)
+        </dd>
+        <dt class = "col-sm-2">
+            Số điện thoại khách hàng
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Order.Phone)
+        </dd>
+        <dt class = "col-sm-2">
+            Địa chỉ giao hàng
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Order.Address)
+        </dd>
+        <dt class = "col-sm-2">
+            Ngày đặt hàng
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Order.CreatedDate)
+        </dd>
+        <dt class = "col-sm-2">
+            Trạng thái đơn hàng
+        </dt>
+        <dd class = "col-sm-10">
+            @*@Html.DisplayFor(model => model.Order.Status)*@
+            @{
+                string[] statusOrder = {"Chờ xác nhận", "Đang đóng gói", "Chờ vận chuyển", "Đang giao hàng", "Đã giao hàng" };
+            }
+            @for (var i = 0; i < statusOrder.Count(); i++)
+            {
+                @if(Model.Order.Status == i)
+                {
+                    @statusOrder[i];
+                }
+            }
+        </dd>
+    </dl>
+</div>
+
+<div class="text-center">
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Tên sản phẩm
+            </th>
+            <th>
+                Số lượng
+            </th>
+            <th>
+                Đơn giá
+            </th>
+            <th>
+                Tổng tiền
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.OrderDetails) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                $@(item.Product.ProductPrice * (1 -  item.Product.ProductDiscount))
+            </td>
+            <td>
+                $@(item.Product.ProductPrice * (1 -  item.Product.ProductDiscount) * item.Quantity)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+
+<div>
+    <a class="btn btn-primary" asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,84 @@
+﻿@model IEnumerable<ASPBanHangOnline.Models.News>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contents)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsPhoto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalLike)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalComment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Admin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsNew)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDisplay)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contents)
+            </td>
+            <td>
+                <img src="@Html.DisplayFor(modelItem => item.NewsPhoto)" width="90" height="100"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalLike)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalComment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Admin.AccountNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsNew)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDisplay)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.NewsId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.NewsId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.NewsId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

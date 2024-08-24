@@ -1,0 +1,118 @@
+﻿@model ASPBanHangOnline.Models.News
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@*<h1>Create</h1>
+
+<h4>News</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Contents" class="control-label"></label>
+                <input asp-for="Contents" class="form-control" />
+                <span asp-validation-for="Contents" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NewsPhoto" class="control-label"></label>
+                <input asp-for="NewsPhoto" class="form-control" />
+                <span asp-validation-for="NewsPhoto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalLike" class="control-label"></label>
+                <input asp-for="TotalLike" class="form-control" />
+                <span asp-validation-for="TotalLike" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalComment" class="control-label"></label>
+                <input asp-for="TotalComment" class="form-control" />
+                <span asp-validation-for="TotalComment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdminId" class="control-label"></label>
+                <select asp-for="AdminId" class ="form-control" asp-items="ViewBag.AdminId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsNew" class="control-label"></label>
+                <input asp-for="IsNew" class="form-control" />
+                <span asp-validation-for="IsNew" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsDisplay" class="control-label"></label>
+                <input asp-for="IsDisplay" class="form-control" />
+                <span asp-validation-for="IsDisplay" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>*@
+
+<h4 class="text-center">Thêm bài viết mới</h4>
+<br/>
+<form asp-action="Create" enctype="multipart/form-data">
+
+  <!-- Text input -->
+  <div class="form-outline mb-4">
+    <label asp-for="Title" class="form-label" for="form6Example3">Tiêu đề bài viết</label>
+    <input asp-for="Title"  type="text" id="form6Example3" class="form-control" />
+    <span asp-validation-for="Title" class="text-danger"></span>
+  </div>
+
+  <div class="form-outline mb-4">
+    <label asp-for="Description" class="form-label" for="form6Example7">Mô tả</label>
+    <textarea asp-for="Description" class="form-control" id="form6Example7" rows="4"></textarea>
+    
+    <span asp-validation-for="Description" class="text-danger"></span>
+  </div>
+
+  <div class="form-outline mb-4">
+    <label asp-for="Contents" class="form-label" for="form6Example7">Nội dung chi tiết</label>
+    <textarea asp-for="Contents" class="form-control" id="form6Example7" rows="8"></textarea>
+    
+    <span asp-validation-for="Contents" class="text-danger"></span>
+  </div>
+  <div class="form-outline mb-4">
+    <label asp-for="NewsPhoto" class="control-label">Hình ảnh</label>
+    <input type="file" name="uploadFile" class="form-control" />
+    @*<span asp-validation-for="NewsPhoto" class="text-danger"></span>*@
+   </div>
+
+  <!-- Text input -->
+  <div class="form-outline mb-4">
+     <label class="form-check-label">
+        <input class="form-check-input" asp-for="IsNew" /> Bài viết mới
+    </label>
+  </div>
+
+  <!-- Email input -->
+  <div class="form-outline mb-4">
+    <label class="form-check-label">
+        <input class="form-check-input" asp-for="IsDisplay" /> Hiển thị bài viết
+    </label>
+  </div>
+
+  <!-- Submit button -->
+  <button type="submit" value="Create" class="btn btn-primary btn-block mb-4">Tạo bài viết</button>
+</form>
+
+<div>
+    <a class="btn btn-primary" asp-action="Index">Back to List</a>
+</div>
+

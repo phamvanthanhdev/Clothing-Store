@@ -1,0 +1,92 @@
+﻿@model IEnumerable<ASPBanHangOnline.Models.Order>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Danh sách đơn đặt hàng</h2>
+
+<div class="text-center">
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Mã đơn hàng
+            </th>
+            <th>
+                Tên khách hàng
+            </th>
+            <th>
+                Tổng giá trị
+            </th>
+            <th>
+                Số điện thoại
+            </th>
+            <th>
+                Địa chỉ giao
+            </th>
+            <th>
+                Ngày tạo
+            </th>
+            <th>
+                Trạng thái đơn hàng
+            </th>
+            <th>
+                Hành động
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderId)
+            </td>
+            <td>
+                @(item.User.FirstName + " " + item.User.LastName)
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => item.TotalPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                @{
+                    string[] statusOrder = {"Chờ xác nhận", "Đang đóng gói", "Chờ vận chuyển", "Đang giao hàng", "Đã giao hàng" };
+                }
+                <form asp-action="UpdateStatus">
+                    <input name="OrderId" value="@item.OrderId" type="hidden" class="form-control" />
+
+                    <select name="Status" class="form-select" aria-label="Trạng thái">
+                      <option disabled>Chọn trạng thái</option>
+                      @for (var i = 0; i < statusOrder.Count(); i++)
+                      {
+                          @if(@i==item.Status){
+                              <option value="@i" selected>@statusOrder[i]</option>
+                          }else{
+                              <option value="@i">@statusOrder[i]</option>
+                          }
+                      }
+                    </select>
+                    <input type="submit" value="Update" class="btn btn-primary" />
+                </form>
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.OrderId">OrderDetails</a>
+                @*<a asp-action="UpdateStatus" asp-route-id="@item.OrderId">Update</a>
+                <a asp-action="Edit" asp-route-id="@item.OrderId">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
